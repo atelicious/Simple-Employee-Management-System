@@ -9,7 +9,7 @@ while is_playing == True:
     print('                     Menu                     ')
     print('\n1. Create new Employee\n2. Search Employee\n3. Update Employee Details\n4. Delete Employee\n5. Exit\n')
 
-    ans = input('Your choice? (1-5): ')
+    ans = input('Your choice? (1-5): ').strip()
     if ans == '1':
         print('Create New Employee Profile\n')
         first_name = input('First Name: ').lower().strip()
@@ -93,32 +93,48 @@ while is_playing == True:
         
         if not emp:
             print(f'\nEmployee {first_name.title()} {last_name.title()} not found, please try again.')
+            continue
         else:
             print(f'\n{first_name.title()} {last_name.title()}\'s Profile')
-            print(f'\nFirst Name: {emp[0].title()}\nLast Name: {emp[1].title()}\nCurrent Pay: {emp[2]}')
+            print(f'\nFirst Name: {emp[0].title()}\nLast Name: {emp[1].title()}\nCurrent Pay: {emp[2]}\nPosition: {emp[3]}\nDepartment: {emp[4]}\nSupervisor: {emp[5]}')
 
-        print('\nSelect Details to be Updated:\n1. First Name\n2. Last Name\n3. Pay\n4. Position\n5. Department\n6. Supervisor\n')
+        print('\nSelect Details to be Updated:\n1. First Name\n2. Last Name\n3. Pay\n4. Position\n5. Department\n6. Supervisor\n7. Back to Main Menu\n')
         ans = input('Your Choice (1-6): ')
 
         if ans == '1':
             print('\nUpdate Employee\'s First Name\n')
 
-            ans = input(f'\nDo you want to change {first_name.title()} {last_name.title()}\'s First Name? (y/n): ').lower().strip()
+            ans = input(f'Do you want to change {first_name.title()} {last_name.title()}\'s First Name? (y/n): ').lower().strip()
             
             if ans == 'y':
                 new_first = input('Enter new First Name: ').lower().strip()
                 update_first(first_name, last_name, new_first)
-                print(f'\n{first_name.title()} {last_name.title()}\'s succesfully changed from {emp[0]} to {new_first}')
+                print(f'\n{first_name.title()} {last_name.title()}\'s first name succesfully changed from {emp[0].title()} to {new_first.title()}')
 
             elif ans == 'n':
                 continue
 
+            else:
+                print('Input not recognized, please try again.')
+
         elif ans == '2':
-            pass
+            print('\nUpdate Employee\'s Last Name\n')
+
+            ans = input(f'Do you want to change {first_name.title()} {last_name.title()}\'s Last Name? (y/n): ').lower().strip()
+            
+            if ans == 'y':
+                new_last = input('Enter new Last Name: ').lower().strip()
+                update_last(first_name, last_name, new_last)
+                print(f'\n{first_name.title()} {last_name.title()}\'s last name succesfully changed from {emp[1].title()} to {new_last.title()}')
+
+            elif ans == 'n':
+                continue
+
+            else:
+                print('Input not recognized, please try again.')
         
         elif ans == '3':
-            print('Update Employee Pay\n')
-            emp = search_employee(first_name, last_name)
+            print('Update Employee\'s Pay\n')
             
             ans = input(f'\nDo you want to change {first_name.title()} {last_name.title()}\'s Pay? (y/n): ').lower().strip()
 
@@ -130,18 +146,71 @@ while is_playing == True:
                     continue
 
                 update_pay(first_name, last_name, pay)
-                print(f'\n{first_name.title()} {last_name.title()}\'s succesfully changed from {emp[2]} to {pay}')
+                print(f'\n{first_name.title()} {last_name.title()}\'s pay succesfully changed from {emp[2]} to {pay}')
+
             elif ans.lower() == 'n':
-                break
+                continue
+
+            else:
+                print('Input not recognized, please try again.')
 
         elif ans == '4':
-            pass
+            print('Update Employee\'s Position\n')
+            
+            ans = input(f'\nDo you want to change {first_name.title()} {last_name.title()}\'s Position? (y/n): ').lower().strip()
+
+            if ans.lower() == 'y':
+                position = input('New Position: ')
+                update_position(first_name, last_name, position)
+                print(f'\n{first_name.title()} {last_name.title()}\'s postion succesfully changed from {emp[3].title()} to {position.title()}')
+
+            elif ans.lower() == 'n':
+                continue
+
+            else:
+                print('Input not recognized, please try again.')
+
 
         elif ans == '5':
-            pass
+            print('Update Employee\'s Department\n')
+            
+            ans = input(f'\nDo you want to change {first_name.title()} {last_name.title()}\'s Department? (y/n): ').lower().strip()
+
+            if ans.lower() == 'y':
+                department = input('New Department: ')
+                update_department(first_name, last_name, department)
+                print(f'\n{first_name.title()} {last_name.title()}\'s postion succesfully changed from {emp[4].title()} to {department.title()}')
+
+            elif ans.lower() == 'n':
+                continue
+
+            else:
+                print('Input not recognized, please try again.')
 
         elif ans == '6':
-            pass
+            print('Update Employee\'s Supervisor\n')
+            
+            ans = input(f'\nDo you want to change {first_name.title()} {last_name.title()}\'s Supervisor? (y/n): ').lower().strip()
+
+            if ans.lower() == 'y':
+                supervisor = input('New Supervisor: ')
+                update_department(first_name, last_name, supervisor)
+                print(f'\n{first_name.title()} {last_name.title()}\'s postion succesfully changed from {emp[5].title()} to {supervisor.title()}')
+
+            elif ans.lower() == 'n':
+                continue
+
+            else:
+                print('Input not recognized, please try again.')
+                continue
+        
+        elif ans == '7':
+            continue
+
+        else:
+            print('Input not recognized, please try again.')
+            continue
+        
 
     elif ans == '4':
         print('Delete Employee \n')
@@ -169,6 +238,9 @@ while is_playing == True:
 
         elif ans.lower() == 'n':
             continue
+
+        else:
+            print('Input not recognized, please try again.')
 
         ans = input(f'\nDo you want to delete {first_name.title()} {last_name.title()}\'s profile? (y/n): ').lower().strip()
 

@@ -42,6 +42,29 @@ def update_first(old, last, new):
         c.execute("SELECT * FROM employees WHERE first =:old AND last =:last ", {'old': old, 'last': last})
         c.execute("""UPDATE employees SET first = :new_first """, {'new_first': new})
 
+def update_last(first, old, new):
+    with conn:
+        c.execute("SELECT * FROM employees WHERE first =:first AND last =:old ", {'first': first, 'old': old})
+        c.execute("""UPDATE employees SET last = :new_last """, {'new_last': new})
+
+def update_position(first, last, position):
+    with conn:
+        c.execute("""UPDATE employees SET position = :position WHERE first = :first AND
+                    last = :last""", {'first': first, 'last': last, 'position': position}
+                )
+
+def update_department(first, last, department):
+    with conn:
+        c.execute("""UPDATE employees SET department = :department WHERE first = :first AND
+                    last = :last""", {'first': first, 'last': last, 'department': department}
+                )
+
+def update_supervisor(first, last, supervisor):
+    with conn:
+        c.execute("""UPDATE employees SET supervisor = :supervisor WHERE first = :first AND
+                    last = :last""", {'first': first, 'last': last, 'supervisor': supervisor}
+                )
+
 def remove_emp(first, last):
     with conn:
         c.execute("DELETE from employees WHERE first = :first and LAST = :last", {'first':first,
