@@ -1,10 +1,13 @@
 import sqlite3
 
-conn = sqlite3.connect(':memory:')
+conn = sqlite3.connect('db_employee.db')
 
 c = conn.cursor()
 
-c.execute("""CREATE TABLE employees (first text, last text, pay integer, position text, department text, supervisor text)""")
+try:
+    c.execute("""CREATE TABLE employees (first text, last text, pay integer, position text, department text, supervisor text)""")
+except sqlite3.OperationalError:
+    pass
 
 def insert_emp(emp):
     with conn:
