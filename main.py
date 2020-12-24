@@ -7,7 +7,7 @@ is_playing = True
 while is_playing == True:
     print('\n**********Employee Management System**********\n')
     print('                     Menu                     ')
-    print('\n1. Create new Employee\n2. Search Employee\n3. Update Employee Pay\n4. Delete Employee\n5. Exit\n')
+    print('\n1. Create new Employee\n2. Search Employee\n3. Update Employee Details\n4. Delete Employee\n5. Exit\n')
 
     ans = input('Your choice? (1-5): ')
     if ans == '1':
@@ -88,11 +88,30 @@ while is_playing == True:
         print('Update Employee Details\n')
         first_name = input('First Name ex. Mary : ').lower().strip()
         last_name = input('Last Name ex. Sutherland : ').lower().strip()
-        print('Select Details to be Updated:\n1. First Name\2. Last Name\3. Pay\4. Position\n5. Department\n6. Supervisor\n')
+
+        emp = search_employee(first_name, last_name)
+        
+        if not emp:
+            print(f'\nEmployee {first_name.title()} {last_name.title()} not found, please try again.')
+        else:
+            print(f'\n{first_name.title()} {last_name.title()}\'s Profile')
+            print(f'\nFirst Name: {emp[0].title()}\nLast Name: {emp[1].title()}\nCurrent Pay: {emp[2]}')
+
+        print('\nSelect Details to be Updated:\n1. First Name\n2. Last Name\n3. Pay\n4. Position\n5. Department\n6. Supervisor\n')
         ans = input('Your Choice (1-6): ')
 
         if ans == '1':
-            pass
+            print('\nUpdate Employee\'s First Name\n')
+
+            ans = input(f'\nDo you want to change {first_name.title()} {last_name.title()}\'s First Name? (y/n): ').lower().strip()
+            
+            if ans == 'y':
+                new_first = input('Enter new First Name: ').lower().strip()
+                update_first(first_name, last_name, new_first)
+                print(f'\n{first_name.title()} {last_name.title()}\'s succesfully changed from {emp[0]} to {new_first}')
+
+            elif ans == 'n':
+                continue
 
         elif ans == '2':
             pass
@@ -101,12 +120,7 @@ while is_playing == True:
             print('Update Employee Pay\n')
             emp = search_employee(first_name, last_name)
             
-            if not emp:
-                print(f'\nEmployee {first_name.title()} {last_name.title()} not found, please try again.')
-            else:
-                print(f'\n{first_name.title()} {last_name.title()}\'s Profile')
-                print(f'\nFirst Name: {emp[0].title()}\nLast Name: {emp[1].title()}\nCurrent Pay: {emp[2]}')
-                ans = input(f'\nDo you want to change {first_name.title()} {last_name.title()}\'s Pay? (y/n): ').lower().strip()
+            ans = input(f'\nDo you want to change {first_name.title()} {last_name.title()}\'s Pay? (y/n): ').lower().strip()
 
             if ans.lower() == 'y':
                 try:

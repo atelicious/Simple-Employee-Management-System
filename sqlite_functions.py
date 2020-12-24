@@ -37,11 +37,10 @@ def update_pay(first, last, pay):
                     last = :last""", {'first': first, 'last': last, 'pay': pay}
                 )
 
-def update_first(old_first, last, new_first):
+def update_first(old, last, new):
     with conn:
-        c.execute("""UPDATE employees SET first = :new_first WHERE first = :old_first AND
-                    last = :last""", {'old_first': old_first, 'last': last, 'first': new_first}
-                )
+        c.execute("SELECT * FROM employees WHERE first =:old AND last =:last ", {'old': old, 'last': last})
+        c.execute("""UPDATE employees SET first = :new_first """, {'new_first': new})
 
 def remove_emp(first, last):
     with conn:
